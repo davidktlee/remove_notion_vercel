@@ -1,21 +1,19 @@
 import { Handler } from '@netlify/functions'
 import axios from 'axios'
 
-const { APIKEY, USERNAME, NODE_ENV } = process.env
+const { APIKEY, USERNAME, NODE_ENV,PUBLIC_URL } = process.env
 
 const handler: Handler = async event => {
-  // console.log('event.path::', event.path)
-  // '/workspaces/AWEUIRJLASJKNFaskdhjbfksj'
-  // params => ['workspaces', 'AWEUIRJLASJKNFaskdhjbfksj']
-  const params = event.path.split('/').filter(p => p)
+
+  const id = event.path.split('/').filter(p => p).reverse()[0]
   const { data } = await axios({
-    url: `https://asia-northeast3-heropy-api.cloudfunctions.net/api/notion/workspaces/${params[1]}`,
+    url: `https://asia-northeast3-heropy-api.cloudfunctions.net/api/notion/workspaces/${id}`,
     method: 'GET',
     headers: {
       'content-type': 'application/json',
       'apikey': APIKEY as string,
       'username': USERNAME as string
-    }
+    },
   })
   const { title, content, poster } = data
 
@@ -37,7 +35,14 @@ const handler: Handler = async event => {
           <meta property="og:title" content="${title}" />
           <meta property="og:description" content="${content}" />
           <meta property="og:image" content="${poster}" />
-          <meta property="og:url" content="https://charming-moonbeam-67283c.netlify.app/${params[1]}" />
+          <meta property="og:url" content="https://https://${PUBLIC_URL}/workspaces/${id}" />
+
+          <meta property="twitter:card" content="summary" />
+          <meta property="twitter:site" content="Notion Clone!" />
+          <meta property="twitter:title" content="${title}" />
+          <meta property="twitter:description" content="${content}" />
+          <meta property="twitter:image" content="${poster}" />
+          <meta property="twitter:url" content="https://${PUBLIC_URL}/workspaces/${id}" />
 
           <link rel="icon" href="https://heropy.blog/css/images/logo.png">
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
