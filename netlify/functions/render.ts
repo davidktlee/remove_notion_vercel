@@ -51,7 +51,7 @@ const handler: Handler = async event => {
           <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
           ${
-            NODE_ENV === 'development' 
+            MODE === 'development' 
               ? '<script defer type="module" src="/src/main.ts"></script>'
               : '<script type="module" crossorigin src="/assets/index.js"></script><link rel="stylesheet" href="/assets/index.css">'
           }
